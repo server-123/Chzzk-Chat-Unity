@@ -12,12 +12,13 @@ WebSocket을 이용해 유니티에서 치지직의 채팅 정보를 가져올 �
 개발하고자 하는 프로그램에 따라 적절히 사용하시면 됩니다.
 
 ## 사용법
-1. 해당 스크립트를 오브젝트에 넣습니다.
-2. **channelId** 변수에 치지직 채널 Url의 Id를 넣어줍니다.
+1. websocket-sharp을 적용시킵니다.
+2. 해당 스크립트를 오브젝트에 넣습니다.
+3. **channelId** 변수에 치지직 채널 Url의 Id를 넣어줍니다.
 - channelId를 제외한 변수에는 별도의 값을 넣지 않아도 됩니다.
 - (예시: https://chzzk.naver.com/0390b2ceba895176cd35e59d30c8a867 중 **0390b2ceba895176cd35e59d30c8a867**)   
 ![image](https://github.com/server-123/Chzzk-Chat-Unity/assets/73692229/0ff2de4d-09e8-419c-94ed-ea1507560f3b)
-3. 프로그램을 실행합니다.
+4. 프로그램을 실행합니다.
 
 ### stopConnect
 stopConnect가 true일 경우 연결이 해제된 후엔 자동으로 재연결하지 않습니다.
@@ -34,4 +35,4 @@ cmd의 값에 따라 93101(일반 채팅), 93102(후원 채팅), 94008(클린봇
 동시에 많은 채팅 정보를 받을 시 bdy 배열에 한 번에 저장될 수 있습니다.
 
 ## 의존성
-https://github.com/sta/websocket-sharp
+- https://github.com/sta/websocket-sharp
