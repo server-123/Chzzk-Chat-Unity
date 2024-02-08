@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.Networking;
 using WebSocketSharp;
@@ -47,7 +46,14 @@ public class chat
     public class chat_content
     {
         public string accessToken;
-        public string temporaryRestrict;
+        [Serializable]
+        public class TemporaryRestrict
+        {
+            public bool temporaryRestrict;
+            public int times;
+            public int duration;
+            public int createdTime;
+        }
         public bool realNameAuth;
         public string extraToken;
     }
@@ -58,7 +64,7 @@ public class receivedData
 {
     public string svcid;
     public string ver;
-    public Body[] bdy = new Body[0];
+    public Body[] bdy;
     public int cmd;
     public string tid;
     public string cid;
@@ -92,19 +98,19 @@ public class Profile
     public string badge;
     public string title;
     public bool verifiedMark;
-    public List<Badge> activityBadges;
-    public string[] streamingProperty = new string[0];
+    public string[] activityBadges;
+    public string[] streamingProperty;
+}
 
-    [System.Serializable]
-    public class Badge
-    {
-        public int badgeNo;
-        public string badgeId;
-        public string imageUrl;
-        public string title;
-        public string description;
-        public bool activated;
-    }
+[System.Serializable]
+public class Badge
+{
+    public int badgeNo;
+    public string badgeId;
+    public string imageUrl;
+    public string title;
+    public string description;
+    public bool activated;
 }
 
 public class ChzzkChat : MonoBehaviour
@@ -119,7 +125,11 @@ public class ChzzkChat : MonoBehaviour
     public string accessToken;
 
     WebSocket ws;
+    float timer = 0f;
     public List<receivedData> Data;
+
+    string heartbeatRequest = "{\"ver\":\"2\",\"cmd\":0}";
+    string heartbeatResponse = "{\"ver\":\"2\",\"cmd\":10000}";
 
     void OnEnable()
     {
@@ -132,6 +142,19 @@ public class ChzzkChat : MonoBehaviour
     {
         stopConnect = true;
         Disconncect();
+    }
+
+    void FixedUpdate()
+    {
+        if (!stopConnect)
+        {
+            timer += Time.unscaledDeltaTime;
+            if (timer > 15)
+            {
+                ws.Send(heartbeatRequest);
+                timer = 0;
+            }
+        }
     }
 
     IEnumerator GetChat()
@@ -173,6 +196,7 @@ public class ChzzkChat : MonoBehaviour
 
     public void Connect()
     {
+        timer = 0f;
         string msg = "{\"ver\":\"2\",\"cmd\":100,\"svcid\":\"game\",\"cid\":\"" + chatChannelId + "\",\"bdy\":{\"uid\":null,\"devType\":2001,\"accTkn\":\"" + accessToken + "\",\"auth\":\"READ\"},\"tid\":1}";
         Debug.Log(msg);
 
@@ -200,10 +224,14 @@ public class ChzzkChat : MonoBehaviour
     void ws_OnMessage(object sender, MessageEventArgs e)
     {
         receivedData d = JsonUtility.FromJson<receivedData>(e.Data);
-        if (d.ver == "1")
+
+        if (d.cmd == 0)
         {
-            Data.Add(d);
+            ws.Send(heartbeatResponse);
+            timer = 0;
         }
+
+        if (d.ver == "1") Data.Add(d);
     }
 
     void ws_OnOpen(object sender, System.EventArgs e)
