@@ -147,7 +147,7 @@ public class ChzzkChat : MonoBehaviour
     {
         while (!stopConnect)
         {
-            yield return new WaitForSecondsRealtime(15);
+            yield return new WaitForSecondsRealtime(10);
 
             if (ws != null && ws.IsAlive)
             {
