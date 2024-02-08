@@ -125,7 +125,6 @@ public class ChzzkChat : MonoBehaviour
     public string accessToken;
 
     WebSocket ws;
-    float timer = 0f;
     public List<receivedData> Data;
 
     string heartbeatRequest = "{\"ver\":\"2\",\"cmd\":0}";
@@ -196,7 +195,6 @@ public class ChzzkChat : MonoBehaviour
 
     public void Connect()
     {
-        timer = 0f;
         string msg = "{\"ver\":\"2\",\"cmd\":100,\"svcid\":\"game\",\"cid\":\"" + chatChannelId + "\",\"bdy\":{\"uid\":null,\"devType\":2001,\"accTkn\":\"" + accessToken + "\",\"auth\":\"READ\"},\"tid\":1}";
         Debug.Log(msg);
 
@@ -230,7 +228,6 @@ public class ChzzkChat : MonoBehaviour
         if (d.cmd == 0)
         {
             ws.Send(heartbeatResponse);
-            timer = 0;
         }
 
         if (d.ver == "1") Data.Add(d);
