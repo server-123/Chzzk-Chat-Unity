@@ -144,15 +144,15 @@ public class ChzzkChat : MonoBehaviour
         Disconncect();
     }
 
-    void FixedUpdate()
+    IEnumerator HeartBeat()
     {
-        if (!stopConnect)
+        while (!stopConnect)
         {
-            timer += Time.unscaledDeltaTime;
-            if (timer > 15)
+            yield return new WaitForSecondsRealtime(15);
+
+            if (ws != null && ws.IsAlive)
             {
                 ws.Send(heartbeatRequest);
-                timer = 0;
             }
         }
     }
@@ -206,6 +206,8 @@ public class ChzzkChat : MonoBehaviour
         ws.OnClose += ws_OnClose;
         ws.Connect();
         ws.Send(msg);
+
+        StartCoroutine(HeartBeat());
     }
 
     public void Disconncect()
