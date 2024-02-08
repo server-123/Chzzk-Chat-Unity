@@ -28,3 +28,6 @@ profile에 닉네임, 역할, 배지 등의 정보가 저장됩니다.
 msgTypeCode가 1일 경우 일반 채팅이고, 10일 경우 후원 채팅입니다.  
 ![image](https://github.com/server-123/Chzzk-Chat-Unity/assets/73692229/cbfec9b6-f2bf-452f-ab9a-6fa97092e430)  
 동시에 많은 채팅 정보를 받을 시 bdy 배열에 한 번에 저장될 수 있습니다.
+
+### stopConnect
+stopConnect가 true일 경우 연결이 해제된 후엔 자동으로 재연결하지 않습니다.
