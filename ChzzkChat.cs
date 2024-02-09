@@ -113,6 +113,32 @@ public class Badge
     public bool activated;
 }
 
+[Serializable]
+public class Donation
+{
+    public string emojis;
+    public bool isAnonymous;
+    public string payType;
+    public int payAmount;
+    public string streamingChannelId;
+    public string nickname;
+    public string osType;
+    public string donationType;
+    public donationRank[] weeklyRankList;
+    public donationRank donationUserWeeklyRank;
+    public string chatType;
+
+    [System.Serializable]
+    public class donationRank
+    {
+        public string userIdHash;
+        public string nickName;
+        public bool verifiedMark;
+        public int donationAmount;
+        public int ranking;
+    }
+}
+
 public class ChzzkChat : MonoBehaviour
 {
     public bool stopConnect = false;
