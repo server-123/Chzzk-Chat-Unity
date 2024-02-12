@@ -20,9 +20,6 @@ WebSocket을 이용해 유니티에서 치지직의 채팅 정보를 가져올 �
 ![image](https://github.com/server-123/Chzzk-Chat-Unity/assets/73692229/0ff2de4d-09e8-419c-94ed-ea1507560f3b)
 4. 프로그램을 실행합니다.
 
-### stopConnect
-stopConnect가 true일 경우 연결이 해제된 후엔 자동으로 재연결하지 않습니다.
-
 ### 현재 방송 상태
 현재 방송 상태의 정보는 status에 저장됩니다.  
 ![image](https://github.com/server-123/Chzzk-Chat-Unity/assets/73692229/eea61019-dfa9-4aff-ba73-145037561295)  
