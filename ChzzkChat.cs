@@ -239,7 +239,11 @@ public class ChzzkChat : MonoBehaviour
         try
         {
             if (ws == null) return;
-            if (ws.IsAlive) ws.Close();
+            if (ws.IsAlive)
+            {
+                ws.Close();
+                stopConnect = false;
+            }
         }
         catch (Exception e)
         {
