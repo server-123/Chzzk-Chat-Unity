@@ -113,7 +113,7 @@ public class Badge
     public bool activated;
 }
 
-[Serializable]
+[System.Serializable]
 public class Donation
 {
     public string emojis;
