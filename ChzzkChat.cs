@@ -88,7 +88,6 @@ public class receivedData
     }
 }
 
-[System.Serializable]
 public class Profile
 {
     public string userIdHash;
@@ -98,19 +97,33 @@ public class Profile
     public string badge;
     public string title;
     public bool verifiedMark;
-    public string[] activityBadges;
-    public string[] streamingProperty;
-}
+    public Badge[] activityBadges;
+    public StreamingProperty[] streamingProperty;
 
-[System.Serializable]
-public class Badge
-{
-    public int badgeNo;
-    public string badgeId;
-    public string imageUrl;
-    public string title;
-    public string description;
-    public bool activated;
+    [System.Serializable]
+    public class Badge
+    {
+        public int badgeNo;
+        public string badgeId;
+        public string imageUrl;
+        public string title;
+        public string description;
+        public bool activated;
+    }
+
+    [System.Serializable]
+    public class StreamingProperty
+    {
+        public Subscription subscription;
+
+        [System.Serializable]
+        public class Subscription
+        {
+            public int accumulativeMonth;
+            public int tier;
+            public Badge badge;
+        }
+    }
 }
 
 [System.Serializable]
