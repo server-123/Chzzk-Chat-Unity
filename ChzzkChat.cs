@@ -235,7 +235,6 @@ public class ChzzkChat : MonoBehaviour
     public void Connect()
     {
         string msg = "{\"ver\":\"2\",\"cmd\":100,\"svcid\":\"game\",\"cid\":\"" + chatChannelId + "\",\"bdy\":{\"uid\":null,\"devType\":2001,\"accTkn\":\"" + accessToken + "\",\"auth\":\"READ\"},\"tid\":1}";
-        Debug.Log(msg);
 
         ws = new WebSocket("wss://kr-ss1.chat.naver.com/chat");
         ws.OnMessage += ws_OnMessage;
