@@ -98,7 +98,7 @@ public class Profile
     public string title;
     public bool verifiedMark;
     public Badge[] activityBadges;
-    public StreamingProperty[] streamingProperty;
+    public StreamingProperty streamingProperty;
 
     [System.Serializable]
     public class Badge
