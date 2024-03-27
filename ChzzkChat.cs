@@ -154,6 +154,13 @@ public class Donation
 
 public class ChzzkChat : MonoBehaviour
 {
+    enum SslProtocolsHack
+    {
+        Tls = 192,
+        Tls11 = 768,
+        Tls12 = 3072
+    }
+    
     public bool stopConnect = false;
 
     public live_status status;
@@ -237,6 +244,9 @@ public class ChzzkChat : MonoBehaviour
         string msg = "{\"ver\":\"2\",\"cmd\":100,\"svcid\":\"game\",\"cid\":\"" + chatChannelId + "\",\"bdy\":{\"uid\":null,\"devType\":2001,\"accTkn\":\"" + accessToken + "\",\"auth\":\"READ\"},\"tid\":1}";
 
         ws = new WebSocket("wss://kr-ss1.chat.naver.com/chat");
+        var sslProtocolHack = (System.Security.Authentication.SslProtocols)(SslProtocolsHack.Tls12 | SslProtocolsHack.Tls11 | SslProtocolsHack.Tls);
+        ws.SslConfiguration.EnabledSslProtocols = sslProtocolHack;
+
         ws.OnMessage += ws_OnMessage;
         ws.OnOpen += ws_OnOpen;
         ws.OnClose += ws_OnClose;
